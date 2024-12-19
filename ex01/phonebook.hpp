@@ -1,25 +1,11 @@
 #ifndef PHONEBOOK_HPP
 # define PHONEBOOK_HPP
 
+#include "Contact.hpp"
 #include <iostream>
 #include <string.h>
-#include <unistd.h>
+// #include <unistd.h>
 #include <iomanip>
-
-class Contact
-{
-private:
-	std::string		firstname;
-	std::string 	lastname;
-	std::string 	nickname;
-	std::string 	phone_number;
-	std::string 	darkest_secret;
-	std::string		index;
-public :
-	std::string		get_values(char ind);
-	int				set_the_values(std::string str, char ind);
-	void			set_index_value(int index);
-};
 
 class PhoneBook
 {

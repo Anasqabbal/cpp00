@@ -1,40 +1,4 @@
-#include "phonebook.hpp"
-
-
-int	Contact::set_the_values(std::string str, char ind)
-{
-	if (ind == 0)
-		firstname = str;
-	else if (ind == 1)
-		lastname = str;
-	else if (ind == 2)
-		nickname = str;
-	else if (ind == 3)
-		phone_number = str;
-	else if (ind == 4)
-		darkest_secret = str;
-	return (0);
-}
-
-void Contact::set_index_value(int i)
-{
-	index = ((i % 8) + 48);
-}
-
-std::string	Contact::get_values(char ind)
-{
-	if (ind == 0)
-		return (firstname);
-	else if (ind == 1)
-		return (lastname);
-	else if (ind == 2)
-		return (nickname);
-	else if (ind == 3)
-		return (phone_number);
-	else if (ind == 4)
-		return (darkest_secret);
-	return (index.c_str());
-}
+#include "Phonebook.hpp"
 
 Contact *PhoneBook::get_values(void)
 {
@@ -82,25 +46,25 @@ int	PhoneBook::print_specific_contact(PhoneBook ph, int index)
 		return (0);
 	{
 		str = ph.get_contact_value(ph.get_values(), index, 0);
-		write(1, "firstname: ", 11);
-		write(1 ,str.c_str() , strlen(str.c_str()));
-		write(1, "\n", 1);
+		std::cout.write("firstname: ", 11);
+		std::cout.write(str.c_str() , strlen(str.c_str()));
+		std::cout.write("\n", 1);
 		str = ph.get_contact_value(ph.get_values(), index, 1);
-		write(1, "lastname: ", 10);
-		write(1 ,str.c_str() , strlen(str.c_str()));
-		write(1, "\n", 1);
+		std::cout.write("lastname: ", 10);
+		std::cout.write(str.c_str() , strlen(str.c_str()));
+		std::cout.write("\n", 1);
 		str = ph.get_contact_value(ph.get_values(), index, 2);
-		write(1, "nickname: ", 10);
-		write(1 ,str.c_str() , strlen(str.c_str()));
-		write(1, "\n", 1);
+		std::cout.write("nickname: ", 10);
+		std::cout.write(str.c_str() , strlen(str.c_str()));
+		std::cout.write("\n", 1);
 		str = ph.get_contact_value(ph.get_values(), index, 3);
-		write(1, "phonenumber: ", 13);
-		write(1 ,str.c_str() , strlen(str.c_str()));
-		write(1, "\n", 1);
+		std::cout.write("phonenumber: ", 13);
+		std::cout.write(str.c_str() , strlen(str.c_str()));
+		std::cout.write("\n", 1);
 		str = ph.get_contact_value(ph.get_values(), index, 4);
-		write(1, "darket secret: ", 15);
-		write(1 ,str.c_str() , strlen(str.c_str()));
-		write(1, "\n", 1);
+		std::cout.write("darket secret: ", 15);
+		std::cout.write(str.c_str() , strlen(str.c_str()));
+		std::cout.write("\n", 1);
 	}
 	return (1);
 }
@@ -123,7 +87,7 @@ void PhoneBook::print_basic_info(Contact *contacts, int ft_index)
 			to_display = contacts[ft_index].get_values(2);
 		print10_right_alighed(to_display, strlen(to_display.c_str()));
 	}
-	write(1, "\n", 1);
+	std::cout.write("\n", 1);
 }
 
 static int all_alphanum(const char *str, int ind)
@@ -156,13 +120,10 @@ void PhoneBook::add_to_contact(int ind, Contact *contacts,  int ft_index)
 	const char	*res;
 	const char	*input;
 	int			i;
-	static int	e;
 	int		check;
 
     if (std::cin.eof())
             exit(0);
-	if (e++ == 0)
-		std::getline(std::cin, line, '\n');
 	if (ind == 0)
 		input = "firstname: ";
 	else if (ind == 1)
@@ -174,12 +135,11 @@ void PhoneBook::add_to_contact(int ind, Contact *contacts,  int ft_index)
 	else if (ind == 4)
 		input = "darkest secret: ";
 	i = 0;
-	std::cin.clear();
 	while(1)
 	{
 		std::cout << input;
 		std::getline(std::cin, line, '\n');
-		if (std::cin.eof() && write(1, "\n", 1))
+		if (std::cin.eof() && std::cout.write("\n", 1))
             return ;
 		res = line.c_str();
 		if (!res)
@@ -195,20 +155,18 @@ void PhoneBook::add_to_contact(int ind, Contact *contacts,  int ft_index)
 		contacts[ft_index % 8].set_the_values(line, ind);
 		break ;
 	}
-	if (e == 5)
-		e = 0;
 }
 
 void	PhoneBook::print_all_contacts(PhoneBook ph)
 {
 	int i  = -1;
-	write(1, "--------------------------------------------\n", 45);
+	std::cout.write("--------------------------------------------\n", 45);
 	print10_right_alighed("index", 5);
 	print10_right_alighed("firstname", 9);
 	print10_right_alighed("lastname", 8);
 	print10_right_alighed("nickname", 8);
-	write(1, "\n", 1);
-	write(1, "|------------------------------------------|\n", 45);
+	std::cout.write("\n", 1);
+	std::cout.write("|------------------------------------------|\n", 45);
 	while(i++ < ph.get_i_value())
 		ph.print_basic_info(ph.get_values(), i);
 }

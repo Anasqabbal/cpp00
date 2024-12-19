@@ -1,9 +1,9 @@
-NAME=phonebook
+NAME=Phonebook
 CC=c++
 ADDFLAGS= -std=c++98
 S= -fsanitize=address -g
 FLAGS=-Wall -Wextra -Werror $(ADDFLAGS)
-SRC= phonebook.cpp main.cpp
+SRC= Phonebook.cpp main.cpp Contact.cpp 
 OBJ= $(SRC:.cpp=.o)
 
 all : $(NAME)
@@ -11,7 +11,7 @@ all : $(NAME)
 $(NAME) : $(OBJ)
 	$(CC) $(FLAGS) $(OBJ) -o $@
 
-%.o : %.cpp phonebook.hpp
+%.o : %.cpp Phonebook.hpp Contact.hpp
 	$(CC) $(FLAGS) -c $< -o $@
 
 clean :

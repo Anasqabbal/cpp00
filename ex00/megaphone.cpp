@@ -5,7 +5,7 @@ int   ex00_skip_spaces(char *c)
 {
     int i = 0;
 
-    while(c[i] && c[i] == ' ')
+    while(c[i] && (c[i] == ' ' || c[i] >= 9 && c[i] <= 13))
         i++;
     if (!c[i])
         return (0);

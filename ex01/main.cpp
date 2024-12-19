@@ -1,7 +1,4 @@
-#include "phonebook.hpp"
-#include <stdio.h>
-#include <stdlib.h>
-
+#include "Phonebook.hpp"
 
 int main()
 {
@@ -17,10 +14,12 @@ int main()
     index = 0;
     ph.set_i_value(index - 1);
     (void)res;
+    std::cout << "enter one of these commands (ADD, SEARCH, EXIT): " << std::endl;
     while(1)
     {
         flag = 0;
-        std::cin >> strl;
+        std::cout << "> ";
+        std::getline(std::cin, strl);
         str = strl.c_str();
         if (!str)
             return(std::cout.write("error: fatal\n", 13), 1);
@@ -41,13 +40,12 @@ int main()
         else if (str && !strcmp(str, "SEARCH"))
         {
 			ph.print_all_contacts(ph);
-			std::cin.ignore();
             while(1 && ph.get_i_value() != -1)
             {
                 if (!flag)
-			        write(1, "enter index number: ", 20);
+			        std::cout.write("enter index number: ", 20);
                 else
-                    write(1, "your index out of the range, try another one: ", 46);
+                    std::cout.write("your index out of the range, try another one: ", 46);
                 std::getline(std::cin, line, '\n');
                 res = line.c_str();
 				if (std::cin.eof())
